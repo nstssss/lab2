@@ -5,9 +5,9 @@ class Bus:
         self.passengers = passengers
         self.ticket_price = ticket_price
         self.average_speed = 50 #средняя скорость автобуса
-#расчет стоимости маршрута
-    def calculate_cost(self):
-        return self.passengers * self.ticket_price
+"""расчет стоимости маршрута"""
+def calculate_cost(self):
+    return self.passengers * self.ticket_price
 """расчет времени поездки"""
 def calculate_time(self):
     return self.distance / self.average_speed

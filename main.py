@@ -78,7 +78,8 @@ def word(transport_type, file_name):
     doc.save(f"{file_name}.docx")
 
 """Сохранение в excel"""
-
+def excel():
+    print("")
 """сохранение в БД"""
 
 

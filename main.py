@@ -2,6 +2,7 @@ from bus import Bus
 from train import Train
 from plane import Plane
 from docx import Document
+from openpyxl import Workbook
 
 """"""
 def traveling_by_bus():
@@ -17,10 +18,10 @@ def traveling_by_bus():
             print(f"\nСтоимость маршрута: {bus.calculate_cost()} руб.")
             print(f"Время поездки: {bus.calculate_time()} часов" )
             print(f"Пассажиропоток: {bus.calculate_passenger_flow()}" )
-        save = (input("Сохранить отчет (да/нет) "))
-        if (save == "да" or save == "Да"):
-            file = word(bus, "Автобус")
-            print("Отчет сохранен")
+        print("Сохранить?")
+        save = input()
+        if (save == "yes"):
+            excel( bus, "Автобус")
     except(ValueError):
         print("Ошибка! Неверный ввод параметров")
 
@@ -62,6 +63,7 @@ def traveling_by_plane():
 """Сохранение в  word"""
 def word(transport_type, file_name):
     doc = Document()
+    doc.title = f"Отчет <<Путешествие на {transport_type}>>"
     doc.add_heading("Характеристики маршрута", 2)
     doc.add_paragraph(f"Расстояние маршрута: {transport_type.distance} км")
     doc.add_paragraph(f"Количество пассажиров: {transport_type.passengers}  ")
@@ -78,10 +80,56 @@ def word(transport_type, file_name):
     doc.save(f"{file_name}.docx")
 
 """Сохранение в excel"""
-def excel():
-    print("")
+def excel(transport_type, file_name):
+    wb = Workbook()
+    ws = wb.active
+
+    ws['A1'] = "Отчет <<Путешествие"
+    ws['A3'] = "Характеристики маршрута"
+
+    parameters = [
+        ('Расстояние маршрута', f'{transport_type.distance} км'),
+        ('Количество пассажиров', transport_type.passengers),
+        ('Стоимость билета', f'{transport_type.ticket_price} руб.')
+    ]
+    for i, (param, value) in enumerate(parameters, 4):
+        ws[f'A{i}'] = param
+        ws[f'B{i}'] = value
+
+    ws['A7'] = "Расчеты:"
+    results = [
+        ('Общая стоимость маршрута', f'{transport_type.calculate_cost()}'),
+        ('Время поездки', f'{transport_type.calculate_time()}'),
+        ('Пассажиропоток', f'{transport_type.calculate_passenger_flow()} ')
+    ]
+    for i, (result, value) in enumerate(results, 10):
+        ws[f'A{i}'] = result
+        ws[f'B{i}'] = value
+    wb.save(f"{file_name}.xlsx")
+    print("Отчет сохранен")
+
 """сохранение в БД"""
 
+def choosing_to_save(transport_type, file_name):
+    try:
+        save = input("Сохранить отчет? (yes/no)")
+        if (save == "yes" or save == "Yes"):
+            print("\nВыберите формат отчета: ")
+            print("1. Word")
+            print("2. Excel")
+            print("3. BD")
+            print("4. Выйти")
+            num = int(input())
+            if (num < 1 or num > 4):
+                print("Выберите действие от 1 до 4")
+                if (num == "1"):
+                    word(transport_type, file_name)
+                elif(num == "2"):
+                    excel(transport_type, file_name)
+                else:
+                    print("potom")
+    except(ValueError):
+        print("Ошибка! Неверный ввод")
 
 def main():
     while(True):

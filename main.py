@@ -1,6 +1,6 @@
-from bus import Bus
-from train import Train
-from plane import Plane
+from Travelling.bus import Bus
+from Travelling.train import Train
+from Travelling.plane import Plane
 from docx import Document
 from openpyxl import Workbook
 import sqlite3

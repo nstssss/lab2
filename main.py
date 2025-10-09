@@ -20,6 +20,8 @@ def traveling_by_bus():
             print(f"Время поездки: {bus.calculate_time()} часов" )
             print(f"Пассажиропоток: {bus.calculate_passenger_flow()}" )
             choosing_to_save(bus, "Автобус")
+        else:
+            print("Ошибка! Параметры должны быть положительными числами")
     except(ValueError):
         print("Ошибка! Неверный ввод параметров")
 
@@ -38,6 +40,8 @@ def traveling_by_train():
             print(f"Время поездки: {train.calculate_time()} часов")
             print(f"Пассажиропоток: {train.calculate_passenger_flow()}")
             choosing_to_save(train, "Поезд")
+        else:
+            print("Ошибка! Параметры должны быть положительными числами")
     except(ValueError):
         print("Ошибка! Неверный ввод параметров")
 
@@ -56,6 +60,8 @@ def traveling_by_plane():
             print(f"Время поездки: {plane.calculate_time()} часов")
             print(f"Пассажиропоток: {plane.calculate_passenger_flow()}")
             choosing_to_save(plane, "Самолет")
+        else:
+            print("Ошибка! Параметры должны быть положительными числами")
     except(ValueError):
         print("Ошибка! Неверный ввод параметров")
 
@@ -163,7 +169,7 @@ def sqlite(transport_obj, transport_type):
 def choosing_to_save(transport_obj, transport_type):
     try:
         save = input("Сохранить отчет? (yes/no)")
-        if (save == "yes" or save == "Yes"):
+        if (save == "yes" or save == "Yes" or save == "да" or save == "Да"):
             print("\nВыберите формат отчета: ")
             print("1. Word")
             print("2. Excel")

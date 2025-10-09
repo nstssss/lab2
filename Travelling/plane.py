@@ -37,4 +37,6 @@ class Plane(Transport):
     def calculate_passenger_flow(self):
         return self.passengers * self.distance
     def __str__(self):
-        return f"Автобус. Длина маршрута: {self.distance()}, количество пассажиров {self.passengers()}, стоимость билета {self.ticket_price()}"
+        return (f"Автобус. Длина маршрута: {self.distance()},"
+                f" количество пассажиров {self.passengers()},"
+                f" стоимость билета {self.ticket_price()}")
